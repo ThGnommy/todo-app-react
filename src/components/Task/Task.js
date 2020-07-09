@@ -66,7 +66,7 @@ const Task = props => {
     `
 
     return (
-        <Container>
+        <Container id={props.id}>
             <Cross onClick={props.delete}>X</Cross>
             <Note>{props.text}</Note>
         </Container>
@@ -75,6 +75,7 @@ const Task = props => {
 
 Task.propTypes = {
     text: PropTypes.string,
+    id: PropTypes.string,
     delete: PropTypes.func
 }
 
