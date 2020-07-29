@@ -5,7 +5,7 @@ import { Button } from '../../styled-comp'
 export const NewTask = (props) => {
 
     return (
-        <Button onClick={props.onClick}>{props.symbol} New Task from new branch</Button>
+        <Button onClick={props.onClick}>{props.symbol} New Task return</Button>
     )
 }
 
