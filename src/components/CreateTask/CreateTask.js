@@ -6,9 +6,9 @@ const CreateTask = props => {
 
 
     return (
-        <Container>
+        <Container onClick={props.onClick}>
             <Input autoComplete='off' id='input-task' display={props.display} />
-            <Create display={props.display} onClick={props.onClick}>Create</Create>
+            <Create display={props.display}>Create</Create>
         </Container>
     )
 }

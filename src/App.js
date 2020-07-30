@@ -53,9 +53,9 @@ const App = () => {
 
   const DeleteTask = (e) => {
     const note = e.target.parentElement
-    console.log(note)
-    db.collection("notes").doc(note.id).delete().then(() => {
+    db.collection("notes").doc(note.id).delete().then(function() {
       note.remove()
+      console.log('aa')
     })
   }
 
@@ -79,8 +79,8 @@ const App = () => {
       note: id.value,
       color: color
     }).then((doc) => {
-      setTask(task => [...task, <Task delete={DeleteTask} color={color} id={doc.id} key={doc.id} text={id.value} />])
-      id.value = ''
+      setTask(task => [...task, <Task color={color} id={doc.id} key={doc.id} text={id.value} />])
+      console.log("Document written with ID: ", doc.id);
     }).catch((error) => {
       console.error(error);
     });
