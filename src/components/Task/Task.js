@@ -8,7 +8,7 @@ const Task = props => {
     return (
         <Container id={props.id}>
             <Cross onClick={props.delete}>X</Cross>
-            <Note color={props.color}>{props.text}</Note>
+            <Note color={props.color} line={props.DecorationLine}>{props.text}</Note>
         </Container>
     )
 }
@@ -18,6 +18,7 @@ Task.propTypes = {
     id: PropTypes.string,
     delete: PropTypes.func,
     color: PropTypes.string,
+    DecorationLine: PropTypes.string
 }
 
 export default Task

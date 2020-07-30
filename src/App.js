@@ -19,7 +19,6 @@ const App = () => {
   })
 
   useEffect(() => {
-
     const RenderTasks = () => {
       db.collection('notes').get().then((doc) => {
         doc.docs.forEach(element => {
@@ -30,7 +29,8 @@ const App = () => {
             id={element.id} 
             color={element.data().color}
             key={element.id} 
-            text={element.data().note} 
+            text={element.data().note}
+            DecorationLine={element.data().DecorationLine}
           />])
         })
       })
@@ -59,6 +59,12 @@ const App = () => {
     })
   }
 
+  const SetDecorationLine = () => {
+    db.collection('notes').get().then((doc) => {
+
+    })
+  }
+
   const SetTextToTask = (color) => {
 
     const id = document.getElementById('input-task')
@@ -77,7 +83,8 @@ const App = () => {
 
     db.collection("notes").add({
       note: id.value,
-      color: color
+      color: color,
+      DecorationLine: 'line-through'
     }).then((doc) => {
       setTask(task => [...task, <Task delete={DeleteTask} color={color} id={doc.id} key={doc.id} text={id.value} />])
       id.value = ''
