@@ -8,7 +8,7 @@ const Task = props => {
     return (
         <Container id={props.id}>
             <Cross onClick={props.delete}>X</Cross>
-            <Note color={props.color} line={props.DecorationLine}>{props.text}</Note>
+            <Note onClick={props.onClick} color={props.color} line={props.DecorationLine}>{props.text}</Note>
         </Container>
     )
 }

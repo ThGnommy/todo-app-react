@@ -22,7 +22,7 @@ const App = () => {
     const RenderTasks = () => {
       db.collection('notes').get().then((doc) => {
         doc.docs.forEach(element => {
-          console.log(element.id)
+          // console.log(element.id)
           setTask(task => [...task, 
           <Task 
             delete={DeleteTask} 
@@ -30,7 +30,8 @@ const App = () => {
             color={element.data().color}
             key={element.id} 
             text={element.data().note}
-            DecorationLine={element.data().DecorationLine}
+            DecorationLine={element.data().decorationLine}
+            onClick={SetDecorationLine}
           />])
         })
       })
@@ -42,8 +43,8 @@ const App = () => {
 
   const handleCreateTask = () => {
     if(!showInput) {
-      setDisplay('none')
-      setSymbol('+')
+      setDisplay(prevstate => 'none')
+      setSymbol(prevstate => '+')
     }
     else {
       setDisplay('block')
@@ -53,15 +54,37 @@ const App = () => {
 
   const DeleteTask = (e) => {
     const note = e.target.parentElement
-    console.log(note)
     db.collection("notes").doc(note.id).delete().then(() => {
       note.remove()
     })
   }
 
-  const SetDecorationLine = () => {
-    db.collection('notes').get().then((doc) => {
+  const SetDecorationLine = (e) => {
+    
+    let idElement = e.target.parentElement.id
+    const target = e.target
+    const done = 'line-through'
+    const notDone = 'none'
+    
+    const docRef = db.collection('notes').doc(idElement)
+    
+    docRef.get().then((doc) => {
+      if(doc.data().decorationLine === done) {
+        docRef.update({
+          decorationLine: notDone
+        }).then(() => {
+          target.style.textDecoration = notDone
+        })
 
+      } 
+      else if(doc.data().decorationLine === notDone) {
+        docRef.update({
+          decorationLine: done
+        }).then(() => {
+          target.style.textDecoration = done
+        })
+
+      }
     })
   }
 
@@ -84,9 +107,9 @@ const App = () => {
     db.collection("notes").add({
       note: id.value,
       color: color,
-      DecorationLine: 'line-through'
+      decorationLine: 'none'
     }).then((doc) => {
-      setTask(task => [...task, <Task delete={DeleteTask} color={color} id={doc.id} key={doc.id} text={id.value} />])
+      setTask(task => [...task, <Task DecorationLine={doc.decorationLine} onClick={SetDecorationLine} delete={DeleteTask} color={color} id={doc.id} key={doc.id} text={id.value} />])
       id.value = ''
     }).catch((error) => {
       console.error(error);

@@ -14,7 +14,7 @@ export const Note = styled.li`
         -webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.75);
-        text-decoration-line: ${props => props.line};
+        text-decoration: ${props => props.line};
         cursor: pointer;
         transition: font-size 100ms ease-in;
 
